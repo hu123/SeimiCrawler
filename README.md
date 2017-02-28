@@ -147,4 +147,6 @@ pom中添加添加plugin
 # 项目源码 #
 [Github](https://github.com/zhegexiaohuozi/SeimiCrawler)
 > **BTW:**
-> 如果您觉着这个项目不错，到github上`star`一下，我是不介意的 ^_^
+> 如果您觉着这个项目不错，到github上`star`一下，我是不介意的 ^_^    
+
+从这次commit开始写我自己的东西,比如说demo,单元测试和自己的一些心得...
