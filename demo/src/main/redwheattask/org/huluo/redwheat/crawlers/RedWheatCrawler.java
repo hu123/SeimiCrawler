@@ -24,10 +24,14 @@ import java.util.List;
 @Crawler(name = "redWheatCrawler")
 public class RedWheatCrawler extends BaseSeimiCrawler {
 
+    private static String startUrl = "http://www.soften.cn/focus.html";
+    private static String baseUrl = "";
+
     @Override
     public String[] startUrls() {
-
-        return new String[]{"http://www.soften.cn/focus.html"};
+        baseUrl = startUrl.substring(0, startUrl.lastIndexOf("/"));
+        System.out.println(baseUrl);
+        return new String[]{startUrl};
     }
 
     @Override
@@ -36,10 +40,10 @@ public class RedWheatCrawler extends BaseSeimiCrawler {
         try {
             //jsoup不支持一些原生的字符串的函数,所以这里的写法变了
             List<Object> list = jxDocument.sel("//a[@href*='focus-']");
+
+
             for (Object obj : list) {
-                if (obj instanceof Element) {
-                    System.out.println(((Element) obj).html());
-                }
+                System.out.println(response.getUrl() +  "--->" + baseUrl + ((Element) obj).attr("href"));
             }
         } catch (XpathSyntaxErrorException e) {
             e.printStackTrace();
