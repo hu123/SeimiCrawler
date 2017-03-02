@@ -6,6 +6,6 @@ public class Boot {
     public static void main(String[] args) {
 
         Seimi seimi = new Seimi();
-        seimi.goRun("testCrawler");
+        seimi.goRun("testCrawler1");
     }
 }

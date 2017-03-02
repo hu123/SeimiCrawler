@@ -11,10 +11,10 @@ public class Passage {
     private String title;
 
     @Xpath("//div[@class='proDtit']/span/text()")
-    private String dateAndTag ;
+    private String dateAndTag;
 
-    private int currentPage;
-
+    @Xpath("//div[@class='proDcon']/p/text() | //div[@class='proDcon']/div/text()")
+    private String content;
 
     public Integer getId() {
         return id;
@@ -40,11 +40,11 @@ public class Passage {
         this.dateAndTag = dateAndTag;
     }
 
-    public int getCurrentPage() {
-        return currentPage;
+    public String getContent() {
+        return content;
     }
 
-    public void setCurrentPage(int currentPage) {
-        this.currentPage = currentPage;
+    public void setContent(String content) {
+        this.content = content;
     }
 }
