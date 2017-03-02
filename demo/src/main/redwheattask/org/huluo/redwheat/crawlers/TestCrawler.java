@@ -6,16 +6,18 @@ import cn.wanghaomiao.seimi.struct.Request;
 import cn.wanghaomiao.seimi.struct.Response;
 import cn.wanghaomiao.xpath.exception.XpathSyntaxErrorException;
 import cn.wanghaomiao.xpath.model.JXDocument;
-import org.jsoup.nodes.Attributes;
+import cn.wanghaomiao.dao.mybatis.PassageDao;
+import org.huluo.redwheat.entity.Passage;
 import org.jsoup.nodes.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+//该爬虫完成了一点抓取指定的元素的功能
 @Crawler(name = "testCrawler")
 public class TestCrawler extends BaseSeimiCrawler {
 
@@ -23,6 +25,9 @@ public class TestCrawler extends BaseSeimiCrawler {
     private static String startUrl = "http://www.soften.cn/focus.html";
     private static String baseUrl = "";
 
+
+    @Autowired
+    private PassageDao passageDao;
     @Override
     public String[] startUrls() {
         baseUrl = startUrl.substring(0, startUrl.lastIndexOf("/"));
@@ -149,7 +154,14 @@ public class TestCrawler extends BaseSeimiCrawler {
             System.out.println(concretePassageDocument.sel("//div[@class='proDtit']/span/text()").get(0));
             System.out.println(concretePassageDocument.sel("//div[@class='proDtit']/h1/text()").get(0));
             System.out.println(response.getUrl() + "当前的连接de页码在" + response.getRequest().getMeta().get("currentPage"));
-        } catch (XpathSyntaxErrorException e) {
+
+            Passage passage = response.render(Passage.class);
+
+            passage.setCurrentPage(Integer.parseInt(response.getRequest().getMeta().get("currentPage")));
+            passageDao.save(passage);
+
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

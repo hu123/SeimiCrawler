@@ -58,7 +58,7 @@ public class RedWheatCrawler extends BaseSeimiCrawler {
 
         /*
         拿到下一页的页面元素  >
-     */
+
 
         JXDocument jxDocument = response.document();
         String xpathString = "//a[text()='>']";
@@ -70,6 +70,11 @@ public class RedWheatCrawler extends BaseSeimiCrawler {
         } catch (XpathSyntaxErrorException e) {
             e.printStackTrace();
         }
+             */
+
+
+        JXDocument startDocument = response.document();
+
 
 
     }
