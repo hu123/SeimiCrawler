@@ -1,6 +1,7 @@
 package org.huluo.crawlers;
 
 import cn.wanghaomiao.seimi.def.BaseSeimiCrawler;
+import cn.wanghaomiao.seimi.struct.Request;
 import cn.wanghaomiao.seimi.struct.Response;
 import cn.wanghaomiao.xpath.model.JXDocument;
 import org.huluo.dbutil.InsertVideoUrlTodb;
@@ -57,8 +58,18 @@ public class Crawler1 extends BaseSeimiCrawler {
                 System.out.println(iter.next());
             }
 
-
             method(set);
+            push(new Request(startUrl1, "callback"));
+
+            push(new Request(startUrl2, "callback"));
+            push(new Request(startUrl3, "callback"));
+            push(new Request(startUrl4, "callback"));
+            push(new Request(startUrl5, "callback"));
+            push(new Request(startUrl6, "callback"));
+            push(new Request(startUrl7, "callback"));
+            push(new Request(startUrl8, "callback"));
+
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -66,6 +77,29 @@ public class Crawler1 extends BaseSeimiCrawler {
 
     }
 
+    public void callback(Response response) {
+        String url = response.getUrl();
+
+        try {
+            Document document = Jsoup.connect(startUrl).get();
+            Elements elements = document.select(".mh_list");
+            Elements aElements = elements.select("a");
+            Set<String> set = new HashSet<>();
+
+            for (Element temp : aElements) {
+                set.add(startUrl + temp.attr("href").substring(temp.attr("href").indexOf(".") + 2));
+            }
+            for(Iterator<String> iter = set.iterator(); iter.hasNext();) {
+                System.out.println(iter.next());
+            }
+
+            method(set);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
 
     //从指定的页面上拉取视频的源地址
     public void method(Set<String> set) {

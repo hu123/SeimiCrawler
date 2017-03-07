@@ -18,7 +18,7 @@ public class InsertVideoUrlTodb {
             e.printStackTrace();
         }
     }
-    public static boolean insertUrlTdb(String id, String url) {
+    public synchronized static boolean insertUrlTdb(String id, String url) {
         try {
             preparedStatement = connection.prepareStatement("insert into temp VALUES (?,?)");
 
